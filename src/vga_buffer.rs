@@ -1,7 +1,7 @@
-use volatile::Volatile;
 use core::fmt;
 use lazy_static::lazy_static;
 use spin::Mutex;
+use volatile::Volatile;
 
 lazy_static! {
     pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
@@ -157,7 +157,6 @@ pub fn _print(args: fmt::Arguments) {
 //     writer.write_string("ello! ");
 //     write!(writer, "The numbers are {} and {}", 42, 1.0/3.0).unwrap();
 // }
-
 
 #[test_case]
 fn test_println_simple() {
