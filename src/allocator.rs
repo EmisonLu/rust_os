@@ -1,8 +1,11 @@
-// pub mod bump;
+pub mod bump;
 // use bump::BumpAllocator;
 
 pub mod linked_list;
-use linked_list::LinkedListAllocator;
+// use linked_list::LinkedListAllocator;
+
+pub mod fixed_size_block;
+use fixed_size_block::FixedSizeBlockAllocator;
 
 use alloc::alloc::{GlobalAlloc, Layout};
 use core::ptr::null_mut;
@@ -18,7 +21,7 @@ pub const HEAP_START: usize = 0x_4444_4444_0000;
 pub const HEAP_SIZE: usize = 100 * 1024; // 100 KiB
 
 #[global_allocator]
-static ALLOCATOR: Locked<LinkedListAllocator> = Locked::new(LinkedListAllocator::new());
+static ALLOCATOR: Locked<FixedSizeBlockAllocator> = Locked::new(FixedSizeBlockAllocator::new());
 
 pub fn init_heap(
     mapper: &mut impl Mapper<Size4KiB>,
